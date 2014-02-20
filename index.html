@@ -7,43 +7,39 @@
     <link href="kendoUI/styles/kendo.mobile.all.min.css" rel="stylesheet" />
     <script src="kendoUI/js/jquery.min.js"></script>
     <script src="kendoUI/js/kendo.all.min.js"></script>
+	<meta charset="UTF-8">
 </head>
 <body>
-    <div data-role="view" data-layout="overview-layout" id="overview-cities" data-title="Favourite Cities">
+	
+    <div data-role="view" data-layout="overview-layout" id="overview-cities" data-title="Comercios">
+	   <ul id="select-period" data-role="buttongroup" data-index="0">
+        <li st='1'>
+            Mis Comercios
+        </li>
+        <li st='2'>
+            Todos
+        </li>
+    </ul>
+	  <input id='cat_all' type="checkbox"  data-checked="true" />
     <ul data-role="listview" data-style="inset" data-type="group">
-        <li>
-            Africa
+        <li class='categoria'>
+            Comida 
             <ul>
-                <li><h2>Nairobi</h2><img src="../../content/mobile/overview/nairobi.jpg" /></li>
+                <li class='favorito'><h2>Veggie House</h2><img src="http://www.pegasusbus.com/wp-content/uploads/food-icon.png" /></li>
             </ul>
         </li>
-        <li>
-            America
+        <li class='categoria'>
+            Entretenimiento
             <ul>
-                <li><h2>Boston</h2><img src="../../content/mobile/overview/boston.jpg" /></li>
-                <li><h2>Ottawa</h2><img src="../../content/mobile/overview/ottawa.jpg" /></li>
-                <li><h2>San Francisco</h2><img src="../../content/mobile/overview/san-francisco.jpg" /></li>
+                <li><h2>Cinépolis</h2><img src="http://3.bp.blogspot.com/_zp1wCOTFI0U/TPHqMokdxuI/AAAAAAAABKU/AQnu0gEneRc/s320/CINEPOLIS%2BLOGO.gif" /></li>
+				<li><h2>Librería Internacional</h2><img src="http://www.psdgraphics.com/wp-content/uploads/2009/06/shopping-bag-icon.jpg" /></li>
             </ul>
         </li>
-        <li>
-            Asia
+        <li class='categoria'>
+            Otros
             <ul>
-                <li><h2>Bombay</h2><img src="../../content/mobile/overview/bombay.jpg" /></li>
-            </ul>
-        </li>
-        <li>
-            Australia
-            <ul>
-                <li><h2>Melbourne</h2><img src="../../content/mobile/overview/melbourne.jpg" /></li>
-                <li><h2>Sydney</h2><img src="../../content/mobile/overview/sydney.jpg" /></li>
-            </ul>
-        </li>
-        <li>
-            Europe
-            <ul>
-                <li><h2>Cannes</h2><img src="../../content/mobile/overview/cannes.jpg" /></li>
-                <li><h2>Liverpool</h2><img src="../../content/mobile/overview/liverpool.jpg" /></li>
-                <li><h2>London</h2><img src="../../content/mobile/overview/london.jpg" /></li>
+                <li><h2>Walmart</h2><img src="https://cdn1.iconfinder.com/data/icons/devine_icons/512/PNG/Folder%20and%20Places/Stack.png" /></li>
+				<li><h2>Gasolinera Total</h2><img src="https://cdn1.iconfinder.com/data/icons/devine_icons/512/PNG/Folder%20and%20Places/Stack.png" /></li>
             </ul>
         </li>
     </ul>
@@ -301,6 +297,56 @@
 
 <script>
     var app = new kendo.mobile.Application(document.body);
+	
+	    function mobileSalesViewInit() {
+        var listviews = this.element.find("ul.km-listview");
+
+        $("#select-period").kendoMobileButtonGroup({
+            select: function() {
+                listviews.hide()
+                         .eq(this.selectedIndex)
+                         .show();
+            },
+            index: 0
+        });
+    }
+	
+	$('#select-period li').click(function(){
+		var st = $(this).attr('st');
+		if(st == 1) {
+			$('[data-role=listview] li li').hide();
+			$('.favorito').show();
+		} else if  (st == 2){
+			$('[data-role=listview] li li').show();
+			
+		}
+	});
+	
+	function desagrupar(){
+		 $('[data-role=listview] li li').each(function(){
+			var papa = $(this).parent().parent().parent();
+			var hijo =$(this);
+			hijo.detach();
+			papa.append(hijo);
+		  });
+		  
+		  $('.categoria').hide();
+		  $('[data-role=listview]').attr('data-type','');
+	}
+	
+	
+	$('input').change(function(){
+
+		if($(this).is(':checked')){
+		
+		}else{
+			desagrupar();
+		
+		 }}
+		);
+	  
+	
+	
 </script>
 </body>
 </html>
