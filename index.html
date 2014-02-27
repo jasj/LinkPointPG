@@ -8,10 +8,16 @@
     <script src="kendoUI/js/jquery.min.js"></script>
     <script src="kendoUI/js/kendo.all.min.js"></script>
 	<meta charset="UTF-8">
+	<style>
+		.searchTag{
+			display: none !important;
+		}
+	</style>
 </head>
 <body>
 	
     <div data-role="view" data-layout="overview-layout" id="overview-cities" data-title="Comercios">
+	  <input  id='busqueda' type="text" value="Text" style='width:100% !important;' />
 	   <ul id="select-period" data-role="buttongroup" data-index="0">
         <li st='1'>
             Mis Comercios
@@ -20,26 +26,26 @@
             Todos
         </li>
     </ul>
-	  <input id='cat_all' type="checkbox"  data-checked="true" />
+
     <ul data-role="listview" data-style="inset" data-type="group">
         <li class='categoria'>
             Comida 
             <ul>
-                <li class='favorito'><h2>Veggie House</h2><img src="http://www.pegasusbus.com/wp-content/uploads/food-icon.png" /></li>
+                <li class='favorito'><h2>Veggie House</h2><h2 class='searchTag'>VEGGIE HOUSE</h2><img src="http://www.pegasusbus.com/wp-content/uploads/food-icon.png" /></li>
             </ul>
         </li>
         <li class='categoria'>
             Entretenimiento
             <ul>
-                <li><h2>Cinépolis</h2><img src="http://3.bp.blogspot.com/_zp1wCOTFI0U/TPHqMokdxuI/AAAAAAAABKU/AQnu0gEneRc/s320/CINEPOLIS%2BLOGO.gif" /></li>
-				<li><h2>Librería Internacional</h2><img src="http://www.psdgraphics.com/wp-content/uploads/2009/06/shopping-bag-icon.jpg" /></li>
+                <li><h2>Cinépolis</h2><h2 class='searchTag'>CINEPOLIS</h2><img src="http://3.bp.blogspot.com/_zp1wCOTFI0U/TPHqMokdxuI/AAAAAAAABKU/AQnu0gEneRc/s320/CINEPOLIS%2BLOGO.gif" /></li>
+				<li><h2>Librería Internacional</h2><h2 class='searchTag'>LIBRERIA INTERNACIONAL</h2><img src="http://www.psdgraphics.com/wp-content/uploads/2009/06/shopping-bag-icon.jpg" /></li>
             </ul>
         </li>
         <li class='categoria'>
             Otros
             <ul>
-                <li><h2>Walmart</h2><img src="https://cdn1.iconfinder.com/data/icons/devine_icons/512/PNG/Folder%20and%20Places/Stack.png" /></li>
-				<li><h2>Gasolinera Total</h2><img src="https://cdn1.iconfinder.com/data/icons/devine_icons/512/PNG/Folder%20and%20Places/Stack.png" /></li>
+                <li><h2>Walmart</h2><h2 class='searchTag'>WALMART</h2><img src="https://cdn1.iconfinder.com/data/icons/devine_icons/512/PNG/Folder%20and%20Places/Stack.png" /></li>
+				<li><h2>Gasolinera Total</h2><h2 class='searchTag'><h2 class='searchTag'>GASOLINERA TOTAL</h2></h2><img src="https://cdn1.iconfinder.com/data/icons/devine_icons/512/PNG/Folder%20and%20Places/Stack.png" /></li>
             </ul>
         </li>
     </ul>
@@ -335,14 +341,10 @@
 	}
 	
 	
-	$('input').change(function(){
-
-		if($(this).is(':checked')){
-		
-		}else{
-			desagrupar();
-		
-		 }}
+	$('#busqueda').keyup(function(){
+			$('[data-role=listview] li li').hide();
+			$('.searchTag:contains("'+$(this).val().toUpperCase()+'")').parent().show();
+		}
 		);
 	  
 	
